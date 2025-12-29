@@ -22,12 +22,7 @@
   <header class="hdr">
     <div class="hdr-left">
       <div class="brand">
-        <img
-            src="./image/source.gif"
-            alt="Dinosaur"
-         class="brand-icon dino-gif"/>
-
-
+        <img src="./image/source.gif" alt="Dinosaur" class="brand-icon dino-gif" />
         <div class="brand-text">
           <span class="brand-name">Dinosaur Fai</span>
           <span class="brand-dot">.com</span>
@@ -56,176 +51,153 @@
   </header>
 
   <div class="page-white">
-  <section class="filterbar">
-  <div class="filterbar-inner">
 
-    <!-- Date range -->
-  <div class="fblk fblk-date">
-  <div class="flabel">Date</div>
+    <!-- ===== Filter Bar ===== -->
+    <section class="filterbar">
+      <div class="filterbar-inner">
 
-  <div class="date-range">
-    <div class="datebox">
-      <input id="dateFrom" type="date" />
-    </div>
-    <div class="datebox">
-      <input id="dateTo" type="date" />
-    </div>
-  </div>
+        <!-- Date Range (Start/Until + Days) -->
+        <div class="fblk fblk-date">
+          <div class="date-pair">
+            <div class="datecol">
+              <div class="flabel">Start</div>
+              <div class="datebox">
+                <!-- ✅ ต้องเป็น dateFrom -->
+                <input id="dateFrom" type="date" />
+              </div>
+            </div>
 
-  <!-- ✅ Range slider (ของจริง) -->
-  <div class="range-dual" aria-label="Date range slider">
-    <input id="dateMinRange" class="range" type="range" min="0" max="0" value="0" step="1" />
-    <input id="dateMaxRange" class="range" type="range" min="0" max="0" value="0" step="1" />
-  </div>
-</div>
+            <div class="datecol">
+              <div class="flabel">Until</div>
+              <div class="datebox">
+                <input id="dateTo" type="date" />
+              </div>
+            </div>
 
+            <div class="days" id="dayDiff">-</div>
+          </div>
+        </div>
 
-    <!-- Type -->
-    <div class="fblk">
-      <div class="flabel">Type</div>
-      <select id="typeFilter">
-        <option value="ALL">All</option>
-      </select>
-    </div>
+        <!-- Type -->
+        <div class="fblk">
+          <div class="flabel">Type</div>
+          <select id="typeFilter">
+            <option value="ALL">All</option>
+          </select>
+        </div>
 
-    <!-- Type End -->
-    <div class="fblk">
-      <div class="flabel">Type End</div>
-      <select id="typeEndFilter">
-        <option value="ALL">All</option>
-      </select>
-    </div>
+        <!-- Type End -->
+        <div class="fblk">
+          <div class="flabel">Type End</div>
+          <select id="typeEndFilter">
+            <option value="ALL">All</option>
+          </select>
+        </div>
 
-    <!-- List -->
-    <div class="fblk">
-      <div class="flabel">List</div>
-      <select id="listFilter">
-        <option value="ALL">All</option>
-      </select>
-    </div>
+        <!-- List -->
+        <div class="fblk">
+          <div class="flabel">List</div>
+          <select id="listFilter">
+            <option value="ALL">All</option>
+          </select>
+        </div>
 
-    <!-- Channel -->
-    <div class="fblk">
-      <div class="flabel">Channel</div>
-      <select id="channelFilter">
-        <option value="ALL">All</option>
-      </select>
-    </div>
+        <!-- Channel -->
+        <div class="fblk">
+          <div class="flabel">Channel</div>
+          <select id="channelFilter">
+            <option value="ALL">All</option>
+          </select>
+        </div>
 
-    <!-- Weekday 
-    <div class="fblk">
-      <div class="flabel">Weekday</div>
-      <select id="weekdayFilter">
-        <option value="">All</option>
-      </select>
-    </div> -->
+        <!-- Actions -->
+        <div class="fblk fblk-actions">
+          <div class="flabel">&nbsp;</div>
+          <div class="actions">
+            <button id="btnClear" class="btn-pill btn-pill-dark">Clear Filter</button>
+            <button id="btnRefresh" class="btn-pill btn-pill-light">Refresh</button>
+          </div>
+        </div>
 
-    <!-- Actions -->
-    <div class="fblk fblk-actions">
-      <div class="flabel">&nbsp;</div>
-      <div class="actions">
-        <button id="btnClear" class="btn-pill btn-pill-dark">Clear Filter</button>
-        <button id="btnRefresh" class="btn-pill btn-pill-light">Refresh</button>
       </div>
-    </div>
+    </section>
+
+    <!-- ===== Debug Table ===== -->
+    <section class="dbg card">
+      <div class="dbg-head">
+        <div>
+          <div class="dbg-title">Debug Table</div>
+          <div id="dbgInfo" class="dbg-sub">-</div>
+        </div>
+        <button id="btnDebugReload" class="btn-pill btn-pill-light">Reload</button>
+      </div>
+
+      <div class="dbg-tablewrap">
+        <table id="dbgTable">
+          <thead id="dbgThead"></thead>
+          <tbody id="dbgTbody"></tbody>
+        </table>
+      </div>
+    </section>
 
   </div>
-</section>
 
-<section class="dbg card">
-  <div class="dbg-head">
-    <div>
-      <div class="dbg-title">Debug Table</div>
-      <div id="dbgInfo" class="dbg-sub">-</div>
-    </div>
-    <button id="btnDebugReload" class="btn-pill btn-pill-light">Reload</button>
-  </div>
-
-  <div class="dbg-tablewrap">
-    <table id="dbgTable">
-      <thead id="dbgThead"></thead>
-      <tbody id="dbgTbody"></tbody>
-    </table>
-  </div>
-</section>
-
-
-
-    </div>
-    
-</div>
-
-
-
-
-  <!-- เติม script ให้ Date/Time/Last Update ทำงาน -->
+  <!-- Header clock script (เดิมของคุณ) -->
   <script>
-  const pad2 = (n) => String(n).padStart(2, "0");
+    const pad2 = (n) => String(n).padStart(2, "0");
 
-  // Date: "28 Dec 2025 (Sun)"
-  function formatDateHeader(d) {
-    // ใช้ en-GB เพื่อให้ day มาก่อน month (28 Dec ...)
-    const base = new Intl.DateTimeFormat("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }).format(d);
+    function formatDateHeader(d) {
+      const base = new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }).format(d);
 
-    const weekday = new Intl.DateTimeFormat("en-GB", {
-      weekday: "short",
-    }).format(d);
+      const weekday = new Intl.DateTimeFormat("en-GB", {
+        weekday: "short",
+      }).format(d);
 
-    return `${base} (${weekday})`;
-  }
+      return `${base} (${weekday})`;
+    }
 
-  // Time: "HH:MM:SS" (กว้างคงที่)
-  function formatTime(d) {
-    return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
-  }
+    function formatTime(d) {
+      return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+    }
 
-  function renderDate() {
-    const el = document.getElementById("hdrDate");
-    if (!el) return;
-    el.textContent = formatDateHeader(new Date());
-  }
+    function renderDate() {
+      const el = document.getElementById("hdrDate");
+      if (!el) return;
+      el.textContent = formatDateHeader(new Date());
+    }
 
-  function renderTime() {
-    const el = document.getElementById("hdrTime");
-    if (!el) return;
-    el.textContent = formatTime(new Date());
-  }
+    function renderTime() {
+      const el = document.getElementById("hdrTime");
+      if (!el) return;
+      el.textContent = formatTime(new Date());
+    }
 
-  // Last Update: ตั้งเองตอนโหลดข้อมูลสำเร็จ
-  function setLastUpdate(date = new Date()) {
-    const el = document.getElementById("hdrLastUpdate");
-    if (!el) return;
+    function setLastUpdate(date = new Date()) {
+      const el = document.getElementById("hdrLastUpdate");
+      if (!el) return;
 
-    const dt = new Intl.DateTimeFormat("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }).format(date);
+      const dt = new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }).format(date);
 
-    el.textContent = `${dt} ${formatTime(date)}`;
-  }
+      el.textContent = `${dt} ${formatTime(date)}`;
+    }
 
-  // init
-  renderDate();
-  renderTime();
-  setLastUpdate(new Date());
+    renderDate();
+    renderTime();
+    setLastUpdate(new Date());
+    setInterval(renderDate, 60 * 1000);
+    setInterval(renderTime, 1000);
+    window.setLastUpdate = setLastUpdate;
+  </script>
 
-  // Date อัปเดตวันละครั้ง (กันเปลี่ยนวันตอนเที่ยงคืน)
-  setInterval(renderDate, 60 * 1000);
-
-  // Time อัปเดตทุก 1 วิ (แยกจาก Date)
-  setInterval(renderTime, 1000);
-
-  // expose
-  window.setLastUpdate = setLastUpdate;
-</script>
-
-<script type="module" src="./app.js"></script>
-
-
+  <!-- ✅ app.js -->
+  <script type="module" src="./app.js"></script>
 </body>
 </html>

@@ -7,6 +7,12 @@ const SHEET_URL =
 // ---------- DOM ----------
 
 const el = {
+
+dateFrom: document.getElementById("dateFrom"),
+dateTo: document.getElementById("dateTo"),
+dayDiff: document.getElementById("dayDiff"),
+
+dayDiff: document.getElementById("dayDiff"),
   statusText: document.getElementById("statusText"),
 
   btnRefresh: document.getElementById("btnRefresh"),
@@ -39,6 +45,7 @@ const elHdr = {
 const state = {
   raw: [],
   rows: [],
+  dateAxis: [],
   filters: {
     type: "ALL",
     typeEnd: "ALL",
@@ -46,7 +53,7 @@ const state = {
     channel: "ALL",
     dateFrom: "",
     dateTo: "",
-    dateAxis: [],
+    
   },
   sort: {
     key: null,
@@ -56,6 +63,16 @@ const state = {
 
 
 // ---------- helpers ----------
+function updateDayDiff(){
+    if(!el.dayDiff) return;
+    const a = parseDateStrict(el.dateFrom?.value);
+    const b = parseDateStrict(el.dateTo?.value);
+    if (!a || !b) { el.dayDiff.textContent="-"; return;}
+
+    const diff = Math.round((b-a) / (24*3600 * 1000 )) +1; //นับรวมวันแรก 
+    el.dayDiff.textContent = `${diff} Days`;
+}
+
 function setStatus(msg) {
   if (el.statusText) el.statusText.textContent = msg;
 }
@@ -215,22 +232,17 @@ async function reloadData() {
 
     const before = state.raw.length;
     state.raw = state.raw.filter(r => !!parseDateStrict(r.date));
-    console.log("drop on-date rows= ",before - state.raw.length);
-
-
-    state.raw = state.raw.filter(r =>{
-        const d = parseDateStrict(r.date);
-        return !!d;
-    });
+    console.log("drop no-date rows= ",before - state.raw.length);
 
     // debug: ดูว่า date แปลได้กี่แถว
     const bad = state.raw.filter((r) => !parseDateStrict(r.date));
     console.log("Loaded rows:", state.raw.length, "badDate:", bad.length, bad.slice(0, 5));
 
     initFilterOptions(state.raw);
-    initDateRange(state.raw);
-
+    initDateRange(state.raw);   // ✅ ส่ง rows เข้าไป
+    updateDayDiff();            // ✅ จะเริ่มขึ้นแล้ว
     applyAndRender();
+
 
     if (elHdr.lastUpdate) {
       const now = new Date();
@@ -423,6 +435,15 @@ function applyAndRender() {
 
 // ---------- Events ----------
 function bindEvents() {
+
+ if(el.dateFrom) el.dateFrom.addEventListener("change", () => {
+        updateDayDiff();
+        applyAndRender();
+    });
+    if (el.dateTo) el.dateTo.addEventListener("change", () => {
+        updateDayDiff();
+        applyAndRender();
+    });
 
 // ✅ ลาก min range
 if (el.dateMinRange) {

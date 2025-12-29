@@ -213,6 +213,16 @@ async function reloadData() {
     const data = await loadSheetData({ url: SHEET_URL });
     state.raw = data.map(normalizeRow);
 
+    const before = state.raw.length;
+    state.raw = state.raw.filter(r => !!parseDateStrict(r.date));
+    console.log("drop on-date rows= ",before - state.raw.length);
+
+
+    state.raw = state.raw.filter(r =>{
+        const d = parseDateStrict(r.date);
+        return !!d;
+    });
+
     // debug: ดูว่า date แปลได้กี่แถว
     const bad = state.raw.filter((r) => !parseDateStrict(r.date));
     console.log("Loaded rows:", state.raw.length, "badDate:", bad.length, bad.slice(0, 5));
@@ -329,10 +339,6 @@ function applyFilters() {
     if (f.channel !== "ALL" && r.channel !== f.channel) return false;
 
     const rd = parseDateStrict(r.date);
-
-    // ✅ แถวที่แปลงวันที่ไม่ได้: อย่าตัดทิ้ง
-    if (!rd) return true;
-
     if (dFrom && rd < dFrom) return false;
     if (dTo && rd > dTo) return false;
 

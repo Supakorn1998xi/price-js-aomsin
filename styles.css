@@ -1,0 +1,481 @@
+:root{
+  --bg:#05070f;
+  --card:#101a33;
+  --border:#223057;
+  --text:#e6e9f2;
+  --muted:#a7b0c6;
+  --btn:#2b66ff;
+  --btn2:#223057;
+}
+
+*{box-sizing:border-box}
+body{
+font-family: "Kanit", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Thai", Arial, sans-serif;
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Thai", Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+a{color:inherit}
+h1,h2{margin:0}
+.muted{color:var(--muted)}
+.container{max-width:1200px;margin:0 auto;padding:16px}
+
+/* ===== Header (PowerBI-like top bar) ===== */
+.hdr{
+  height:64px;
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items:center;
+  padding:0 18px;
+  background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter: blur(8px);
+  font-family: "Kanit", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Thai", Arial, sans-serif;
+}
+
+.hdr-left{display:flex; align-items:center; justify-content:flex-start;}
+.hdr-center{display:flex; align-items:center; justify-content:center; gap:54px;}
+.hdr-right{display:flex; align-items:center; justify-content:flex-end;}
+
+.brand{display:flex; align-items:center; gap:10px;}
+.brand-icon{width:26px; height:26px; fill:#35ff8a; filter: drop-shadow(0 6px 10px rgba(0,0,0,.25));}
+.brand-text{display:flex; align-items:baseline; gap:6px;}
+.brand-name{ font-weight: 900; font-size: 16px; }
+.dt-label, .lu-label{ font-weight: 700; }
+.dt-value{ font-weight: 900; letter-spacing: .2px; }
+.lu-value{ font-weight: 800; }
+
+.brand-dot{font-weight:800; opacity:.9;}
+
+.dt, .lu{display:flex; flex-direction:column; gap:4px; text-align:center;}
+.dt-label, .lu-label{
+  font-size:12px;
+  color:rgba(255,255,255,.65);
+  font-weight:600;
+  letter-spacing:.2px;
+}
+.dt-value{
+  font-size:18px;
+  font-weight:900;
+  color:#fff;
+}
+.lu{ text-align:right; }
+.lu-value{ font-size:13px; font-weight:700; color:rgba(255,255,255,.9); }
+
+/* ===== Cards / controls ===== */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  box-shadow: 0 10px 20px rgba(0,0,0,.25);
+}
+
+.filters{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:end;
+}
+.filter{display:flex;flex-direction:column;gap:6px;min-width:180px}
+.filter.grow{flex:1; min-width:260px}
+.filter.grow2{flex:1.5; min-width:260px}
+label{font-size:12px;color:var(--muted)}
+
+select,input{
+  background:#0c1530;
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:10px;
+  padding:10px 10px;
+  outline:none;
+}
+select:focus,input:focus{border-color:#3a77ff}
+
+.btn-row{display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;}
+
+.btn{
+  border:none;
+  background:var(--btn);
+  color:white;
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+}
+.btn:hover{filter:brightness(1.05)}
+.btn-secondary{background:var(--btn2)}
+
+.search{width:100%}
+
+/* ===== KPIs ===== */
+.kpis{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:12px;
+  margin-top:12px;
+}
+.kpi-label{font-size:12px;color:var(--muted)}
+.kpi-value{font-size:26px;font-weight:900;margin-top:8px}
+
+/* ===== Grid ===== */
+.grid{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:12px;
+  margin-top:12px;
+}
+@media (max-width: 980px){
+  .grid{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr}
+}
+
+/* ===== Table ===== */
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.table-wrap{
+  overflow:auto;
+  max-height:460px;
+  border-radius:12px;
+  border:1px solid var(--border)
+}
+table{width:100%;border-collapse:collapse}
+thead th{
+  position:sticky;top:0;
+  background:#0c1530;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  padding:10px;
+  font-size:12px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+tbody td{
+  padding:10px;
+  border-bottom:1px solid rgba(34,48,87,.6);
+  font-size:13px;
+  white-space:nowrap;
+}
+tbody tr:hover{background:rgba(43,102,255,.08)}
+
+.footer{
+  border-top:1px solid var(--border);
+  padding:12px 16px;
+}
+
+/* mobile header */
+@media (max-width: 820px){
+  .hdr{grid-template-columns: 1fr 1fr; height:auto; padding:10px 14px; gap:8px;}
+  .hdr-center{justify-content:flex-start; gap:22px;}
+  .hdr-right{grid-column: 1 / -1; justify-content:flex-end;}
+}
+
+/* ===== Header: ทำให้ตัวบางลง ===== */
+.hdr{
+  font-weight: 400;
+}
+
+.brand-name,
+.brand-dot{
+  font-weight: 500;     /* เดิมหนามาก */
+}
+
+.dt-label,
+.lu-label{
+  font-weight: 400;
+  opacity: .85;
+}
+
+.dt-value{
+  font-weight: 500;     /* ค่ากลาง: บางแต่ยังเด่น */
+  letter-spacing: .2px;
+}
+
+.lu-value{
+  font-weight: 400;
+}
+/* กันตัวเลขขยับ: ใช้ tabular-nums */
+#hdrTime,
+#hdrLastUpdate {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ล็อกความกว้าง Time ให้คงที่เท่ากับ "00:00:00" */
+#hdrTime {
+  display: inline-block;
+  width: 9ch;           /* 8 ตัวอักษร */
+  text-align: center;    /* แล้วแต่ชอบ: right/left/center */
+  white-space: nowrap;
+}
+/* เดิมน่าจะ gap ใหญ่ไป — ลดลง */
+.hdr-center{
+  gap: 10px;   /* ลอง 8-12px ตามชอบ */
+}
+
+/* body ยังเป็นธีมเดิม */
+:root{
+  --bg:#0b1220; /* กลับเป็นสีเดิม */
+}
+
+/* พื้นที่ใต้ header ให้เป็นสีขาว */
+.page-white{
+  background:#fff;
+  min-height: calc(100vh - 64px); /* 64px = ความสูง header */
+}
+
+.dino-gif{
+  width:65px;
+  height:65px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.25));
+}
+
+.brand:hover .dino-gif{
+  transform: translateY(-1px) scale(1.05);
+  transition: transform .2s ease;
+}
+
+/* ===== Filter Bar (Power BI-like) ===== */
+.page-white{
+  background:#fff;
+  min-height: calc(100vh - 64px);
+  padding: 14px 16px;
+}
+
+/* แถบ filter */
+.filterbar{
+  background:#fff;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+/* ภายในให้เรียงแนวนอน */
+.filterbar-inner{
+  display: grid;
+  grid-template-columns: 260px repeat(5, minmax(160px, 1fr)) auto;
+  gap: 14px;
+  align-items: end;
+}
+
+/* block */
+.fblk{ min-width: 0; }
+.flabel{
+  font-size: 12px;
+  color: #111827;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* dropdown / input ให้เป็นทรง powerbi */
+.filterbar select,
+.filterbar input[type="date"]{
+  width: 100%;
+  height: 34px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  padding: 6px 10px;
+  background: #fff;
+  color: #111827;
+  outline: none;
+}
+
+.filterbar select:focus,
+.filterbar input[type="date"]:focus{
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96,165,250,.25);
+}
+
+/* Date range layout */
+.fblk-date .date-range{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.range-rail{
+  height: 10px;
+  margin-top: 8px;
+  position: relative;
+}
+.range-rail::before{
+  content:"";
+  position:absolute;
+  left: 6px; right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  border-radius: 999px;
+  background: #9ca3af;
+  opacity: .7;
+}
+.rail-dot{
+  position:absolute;
+  top: 50%;
+  width: 10px; height: 10px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: #6b7280;
+}
+.rail-dot:first-child{ left: 4px; }
+.rail-dot:last-child{ right: 4px; }
+
+/* actions */
+.fblk-actions{ display:flex; flex-direction:column; }
+.actions{
+  display:flex;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn-pill{
+  height: 34px;
+  border-radius: 999px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+}
+.btn-pill-dark{
+  background: #111827;
+  color: #fff;
+}
+.btn-pill-dark:hover{ filter: brightness(1.05); }
+
+.btn-pill-light{
+  background: #fff;
+  color: #111827;
+  border-color: #d1d5db;
+}
+.btn-pill-light:hover{ background: #f3f4f6; }
+
+/* responsive */
+@media (max-width: 1100px){
+  .filterbar-inner{
+    grid-template-columns: 1fr 1fr;
+  }
+  .actions{ justify-content: flex-start; }
+}
+
+.dbg{ margin-top: 12px; }
+.dbg-head{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.dbg-title{ font-weight:700; font-size:16px; color:#111827; }
+.dbg-sub{ font-size:12px; color:#6b7280; margin-top:4px; }
+
+.dbg-tablewrap{
+  margin-top: 10px;
+  overflow:auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  max-height: 420px;
+}
+
+#dbgTable{ width:100%; border-collapse:collapse; background:#fff; }
+#dbgTable thead th{
+  position: sticky; top: 0;
+  background:#f8fafc;
+  border-bottom:1px solid #e5e7eb;
+  text-align:left;
+  padding:10px;
+  font-size:12px;
+  color:#334155;
+  white-space:nowrap;
+}
+#dbgTable tbody td{
+  padding:10px;
+  border-bottom:1px solid #eef2f7;
+  font-size:13px;
+  color:#111827;
+  white-space:nowrap;
+}
+
+#dbgThead th[data-key]:hover{
+  background:#eef2ff;
+}
+#dbgThead th[data-key]{
+  user-select:none;
+}
+
+/* --- ขยับกลุ่ม filter (Type/Type End/List/Channel) ให้ห่างจาก Date --- */
+
+/* ให้บล็อก Date มีความกว้างคงที่ (ปรับเลขได้) */
+.fblk-date{
+  flex: 0 0 360px;   /* ลอง 300-360px ตามชอบ */
+}
+
+/* เพิ่มช่องว่างก่อนบล็อกถัดจาก Date */
+.fblk-date + .fblk{
+  margin-left: 40px; /* ลอง 12-24px ตามชอบ */
+}
+
+/* ===== Date dual range ===== */
+.range-dual{
+  position: relative;
+  height: 18px;
+  margin-top: 8px;
+}
+
+/* ซ้อน 2 range ทับกัน */
+.range-dual .range{
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  pointer-events: none;     /* ให้ตัวบนไม่บัง */
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: #d5dbe7;      /* สีราง */
+  outline: none;
+}
+
+/* เปิดให้ลากได้เฉพาะ thumb */
+.range-dual .range::-webkit-slider-thumb{
+  pointer-events: auto;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #1f2937;      /* สีจุด */
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+.range-dual .range::-moz-range-thumb{
+  pointer-events: auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #1f2937;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+
+/* ทำให้รางดูคลีน */
+.range-dual .range::-webkit-slider-runnable-track{
+  height: 6px;
+  border-radius: 999px;
+}
+.range-dual .range::-moz-range-track{
+  height: 6px;
+  border-radius: 999px;
+}
+
+
+
+
+

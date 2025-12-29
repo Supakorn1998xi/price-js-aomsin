@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dinosaur Fai Header</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <!-- ===== Header Only ===== -->
+  <header class="hdr">
+    <div class="hdr-left">
+      <div class="brand">
+        <img
+            src="./image/source.gif"
+            alt="Dinosaur"
+         class="brand-icon dino-gif"/>
+
+
+        <div class="brand-text">
+          <span class="brand-name">Dinosaur Fai</span>
+          <span class="brand-dot">.com</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hdr-center">
+      <div class="dt">
+        <div class="dt-label">Date</div>
+        <div id="hdrDate" class="dt-value">-</div>
+      </div>
+
+      <div class="dt">
+        <div class="dt-label">Time</div>
+        <div id="hdrTime" class="dt-value">-</div>
+      </div>
+    </div>
+
+    <div class="hdr-right">
+      <div class="lu">
+        <div class="lu-label">Last Update</div>
+        <div id="hdrLastUpdate" class="lu-value">-</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-white">
+  <section class="filterbar">
+  <div class="filterbar-inner">
+
+    <!-- Date range -->
+  <div class="fblk fblk-date">
+  <div class="flabel">Date</div>
+
+  <div class="date-range">
+    <div class="datebox">
+      <input id="dateFrom" type="date" />
+    </div>
+    <div class="datebox">
+      <input id="dateTo" type="date" />
+    </div>
+  </div>
+
+  <!-- ✅ Range slider (ของจริง) -->
+  <div class="range-dual" aria-label="Date range slider">
+    <input id="dateMinRange" class="range" type="range" min="0" max="0" value="0" step="1" />
+    <input id="dateMaxRange" class="range" type="range" min="0" max="0" value="0" step="1" />
+  </div>
+</div>
+
+
+    <!-- Type -->
+    <div class="fblk">
+      <div class="flabel">Type</div>
+      <select id="typeFilter">
+        <option value="ALL">All</option>
+      </select>
+    </div>
+
+    <!-- Type End -->
+    <div class="fblk">
+      <div class="flabel">Type End</div>
+      <select id="typeEndFilter">
+        <option value="ALL">All</option>
+      </select>
+    </div>
+
+    <!-- List -->
+    <div class="fblk">
+      <div class="flabel">List</div>
+      <select id="listFilter">
+        <option value="ALL">All</option>
+      </select>
+    </div>
+
+    <!-- Channel -->
+    <div class="fblk">
+      <div class="flabel">Channel</div>
+      <select id="channelFilter">
+        <option value="ALL">All</option>
+      </select>
+    </div>
+
+    <!-- Weekday 
+    <div class="fblk">
+      <div class="flabel">Weekday</div>
+      <select id="weekdayFilter">
+        <option value="">All</option>
+      </select>
+    </div> -->
+
+    <!-- Actions -->
+    <div class="fblk fblk-actions">
+      <div class="flabel">&nbsp;</div>
+      <div class="actions">
+        <button id="btnClear" class="btn-pill btn-pill-dark">Clear Filter</button>
+        <button id="btnRefresh" class="btn-pill btn-pill-light">Refresh</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="dbg card">
+  <div class="dbg-head">
+    <div>
+      <div class="dbg-title">Debug Table</div>
+      <div id="dbgInfo" class="dbg-sub">-</div>
+    </div>
+    <button id="btnDebugReload" class="btn-pill btn-pill-light">Reload</button>
+  </div>
+
+  <div class="dbg-tablewrap">
+    <table id="dbgTable">
+      <thead id="dbgThead"></thead>
+      <tbody id="dbgTbody"></tbody>
+    </table>
+  </div>
+</section>
+
+
+
+    </div>
+    
+</div>
+
+
+
+
+  <!-- เติม script ให้ Date/Time/Last Update ทำงาน -->
+  <script>
+  const pad2 = (n) => String(n).padStart(2, "0");
+
+  // Date: "28 Dec 2025 (Sun)"
+  function formatDateHeader(d) {
+    // ใช้ en-GB เพื่อให้ day มาก่อน month (28 Dec ...)
+    const base = new Intl.DateTimeFormat("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }).format(d);
+
+    const weekday = new Intl.DateTimeFormat("en-GB", {
+      weekday: "short",
+    }).format(d);
+
+    return `${base} (${weekday})`;
+  }
+
+  // Time: "HH:MM:SS" (กว้างคงที่)
+  function formatTime(d) {
+    return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+  }
+
+  function renderDate() {
+    const el = document.getElementById("hdrDate");
+    if (!el) return;
+    el.textContent = formatDateHeader(new Date());
+  }
+
+  function renderTime() {
+    const el = document.getElementById("hdrTime");
+    if (!el) return;
+    el.textContent = formatTime(new Date());
+  }
+
+  // Last Update: ตั้งเองตอนโหลดข้อมูลสำเร็จ
+  function setLastUpdate(date = new Date()) {
+    const el = document.getElementById("hdrLastUpdate");
+    if (!el) return;
+
+    const dt = new Intl.DateTimeFormat("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }).format(date);
+
+    el.textContent = `${dt} ${formatTime(date)}`;
+  }
+
+  // init
+  renderDate();
+  renderTime();
+  setLastUpdate(new Date());
+
+  // Date อัปเดตวันละครั้ง (กันเปลี่ยนวันตอนเที่ยงคืน)
+  setInterval(renderDate, 60 * 1000);
+
+  // Time อัปเดตทุก 1 วิ (แยกจาก Date)
+  setInterval(renderTime, 1000);
+
+  // expose
+  window.setLastUpdate = setLastUpdate;
+</script>
+
+<script type="module" src="./app.js"></script>
+
+
+</body>
+</html>

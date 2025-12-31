@@ -80,35 +80,77 @@
 
         <!-- Type -->
         <div class="fblk">
-          <div class="flabel">Type</div>
-          <select id="typeFilter">
-            <option value="ALL">All</option>
-          </select>
+        <div class="flabel">Type</div>
+        <div class="ms">
+            <button type="button" class="ms-btn" id="msBtn-type">
+            All <span class="ms-caret">▾</span>
+            </button>
+
+            <div class="ms-panel" id="msPanel-type" hidden>
+            <div class="ms-actions">
+                <button type="button" class="ms-act" data-act="all" data-key="type">Select all</button>
+                <button type="button" class="ms-act" data-act="none" data-key="type">Clear</button>
+            </div>
+            <div class="ms-list" id="msList-type"></div>
+            </div>
+        </div>
         </div>
 
         <!-- Type End -->
         <div class="fblk">
-          <div class="flabel">Type End</div>
-          <select id="typeEndFilter">
-            <option value="ALL">All</option>
-          </select>
+        <div class="flabel">Type End</div>
+        <div class="ms">
+            <button type="button" class="ms-btn" id="msBtn-typeEnd">
+            All <span class="ms-caret">▾</span>
+            </button>
+
+            <div class="ms-panel" id="msPanel-typeEnd" hidden>
+            <div class="ms-actions">
+                <button type="button" class="ms-act" data-act="all" data-key="typeEnd">Select all</button>
+                <button type="button" class="ms-act" data-act="none" data-key="typeEnd">Clear</button>
+            </div>
+            <div class="ms-list" id="msList-typeEnd"></div>
+            </div>
+        </div>
         </div>
 
         <!-- List -->
         <div class="fblk">
-          <div class="flabel">List</div>
-          <select id="listFilter">
-            <option value="ALL">All</option>
-          </select>
+        <div class="flabel">List</div>
+        <div class="ms">
+            <button type="button" class="ms-btn" id="msBtn-list">
+            All <span class="ms-caret">▾</span>
+            </button>
+
+            <div class="ms-panel" id="msPanel-list" hidden>
+            <div class="ms-actions">
+                <button type="button" class="ms-act" data-act="all" data-key="list">Select all</button>
+                <button type="button" class="ms-act" data-act="none" data-key="list">Clear</button>
+            </div>
+            <div class="ms-list" id="msList-list"></div>
+            </div>
+        </div>
         </div>
 
         <!-- Channel -->
         <div class="fblk">
-          <div class="flabel">Channel</div>
-          <select id="channelFilter">
-            <option value="ALL">All</option>
-          </select>
+        <div class="flabel">Channel</div>
+        <div class="ms">
+            <button type="button" class="ms-btn" id="msBtn-channel">
+            All <span class="ms-caret">▾</span>
+            </button>
+
+            <div class="ms-panel" id="msPanel-channel" hidden>
+            <div class="ms-actions">
+                <button type="button" class="ms-act" data-act="all" data-key="channel">Select all</button>
+                <button type="button" class="ms-act" data-act="none" data-key="channel">Clear</button>
+            </div>
+            <div class="ms-list" id="msList-channel"></div>
+            </div>
         </div>
+        </div>
+
+        
 
         <!-- Actions -->
         <div class="fblk fblk-actions">
@@ -121,6 +163,17 @@
 
       </div>
     </section>
+
+    <!-- Chart -->
+     <section class="chart card">
+        <div class="chart-head">
+            <div class="chart-title">Price bt Date</div>
+            <div id="chartInfo" class="chart-sub">-</div>
+        </div>
+        <div class="chart-wrap">
+            <canvas id="priceChart" height="250"></canvas>
+        </div>
+     </section>
 
     <!-- ===== Debug Table ===== -->
     <section class="dbg card">
@@ -198,6 +251,8 @@
   </script>
 
   <!-- ✅ app.js -->
-  <script type="module" src="./app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script type="module" src="./app.js"></script>
+
 </body>
 </html>

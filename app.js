@@ -285,38 +285,63 @@ function renderPriceChart(rows) {
     state.chart = null;
   }
 
+  // ✅ plugin วาดพื้นหลังใน chartArea
+  const chartBgPlugin = {
+    id: "chartBg",
+    beforeDraw(chart, args, opts) {
+      const { ctx, chartArea } = chart;
+      if (!chartArea) return;
+
+      const { left, top, width, height } = chartArea;
+
+      ctx.save();
+      ctx.fillStyle = opts?.color || "#0b1220"; // ✅ ต้องเป็น fillStyle
+      ctx.fillRect(left, top, width, height);
+      ctx.restore();
+    },
+  };
+
   state.chart = new Chart(el.priceChart.getContext("2d"), {
     type: "line",
     data: {
       labels,
-      datasets: [{ label: "Price", data: values, tension: 0.25, pointRadius: 2 }],
+      datasets: [
+        {
+          label: "Price",
+          data: values,
+          tension: 0.25,
+          pointRadius: 2,
+          borderColor: "#60a5fa",              // สีเส้น
+          backgroundColor: "rgba(96,165,250,.2)",
+          fill: false,
+        },
+      ],
     },
+    plugins: [chartBgPlugin], // ✅ ต้องใส่ตรงนี้ด้วย
     options: {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: { display: false },
-    tooltip: { mode: "index", intersect: false },
-  },
-  scales: {
-    x: {
-      type: "category",          // ✅ Date อยู่แกน X ตามเดิม
-      ticks: {
-        autoSkip: true,
-        maxTicksLimit: 10,
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        chartBg: { color: "#0b1220" }, // ✅ ส่ง options ให้ plugin
+        legend: { display: false },
+        tooltip: { mode: "index", intersect: false },
+      },
+      interaction: { mode: "index", intersect: false },
+      scales: {
+        x: {
+          ticks: { autoSkip: true, maxTicksLimit: 10 },
+          grid: { color: "rgba(255,255,255,.06)" },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 500, // ✅ ถ้าต้องการ 500 ให้เป็น 500
+            callback: (v) => Number(v).toLocaleString("th-TH"),
+          },
+          grid: { color: "rgba(255,255,255,.08)" },
+        },
       },
     },
-    y: {
-      beginAtZero: true,         // ✅ เริ่มที่ 0
-      ticks: {
-        stepSize: 1000,           // ✅ เพิ่มทีละ 500
-        callback: (v) =>
-          v.toLocaleString("th-TH"),
-      },
-    },
-  },
-}
-
   });
 }
 

@@ -336,5 +336,28 @@ body{
 }
 .ms-item input{ width:16px; height:16px; }
 
+/* การ์ดกราฟทั้งใบ */
+.chart.card{
+  background: #0b1220;          /* สีพื้นหลังทั้งการ์ด */
+  border: 1px solid #223057;    /* ถ้าจะให้เข้าธีมเดิม */
+}
+
+/* ตัวหนังสือในหัวกราฟ */
+.chart.card .chart-title,
+.chart.card .chart-sub{
+  color: #e6e9f2;
+}
+
+/* ถ้า chart-wrap มีพื้นขาวอยู่ ให้บังคับด้วย */
+.chart.card .chart-wrap{
+  background: transparent;
+}
+
+/* canvas ให้โปร่งใส เพื่อให้เห็นพื้นหลังจากการ์ด */
+.chart.card canvas{
+  background: transparent !important;
+}
+
+
 
 
